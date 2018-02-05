@@ -35,10 +35,23 @@ describe('Game', function() {
   describe('currentFrame', function() {
 
     it('returns the current frame', function() {
-      var frame1 = {};
-      var frame2 = {};
+      var frame1 = new Frame();
+      var frame2 = new Frame();
       var game = new Game([frame1, frame2]);
       expect(game.currentFrame()).toEqual(frame2);
+    });
+
+    it('does not return a finished frame', function() {
+      var frame1 = new Frame();
+      var game = new Game([frame1]);
+      game.currentFrame().addRoll(new Roll(3));
+      game.currentFrame().addRoll(new Roll(4));
+      expect(game.currentFrame()).not.toEqual(frame1);
+    });
+
+    it('returns a new frame if none exist', function() {
+      var game = new Game();
+      expect(game.currentFrame()).toBeDefined();
     });
 
   });
