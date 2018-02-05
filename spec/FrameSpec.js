@@ -6,6 +6,10 @@ describe('Frame', function() {
   var strike;
   var spare1;
   var spare2;
+  const ROLL_1_SCORE = 3;
+  const ROLL_2_SCORE = 2;
+  const STRIKE_BASE_SCORE = 10;
+  const SPARE_BASE_SCORE = 10;
 
   beforeEach(function() {
     frame = new Frame();
@@ -21,6 +25,18 @@ describe('Frame', function() {
 
     it('has an empty array of rolls', function() {
       expect(frame.rolls()).toEqual([]);
+    });
+
+    it('has an empty array of bonus rolls', function() {
+      expect(frame.bonusRolls()).toEqual([]);
+    });
+
+    it('is unfinished', function() {
+      expect(frame.isFinished()).toBe(false);
+    });
+
+    it('has a score of 0', function() {
+      expect(frame.score()).toEqual(0);
     });
 
   });
@@ -51,27 +67,28 @@ describe('Frame', function() {
 
   });
 
-  describe('addBonus()', function() {
+  describe('isFinished()', function() {
 
-    it('adds one roll\'s bonus score when frame is spare', function() {
+    it('returns true when frame is full', function() {
+      frame.addRoll(roll1);
+      frame.addRoll(roll2);
+      expect(frame.isFinished()).toBe(true);
+    });
+
+    it('returns true when frame is closed by a strike', function() {
+      frame.addRoll(strike);
+      expect(frame.isFinished()).toBe(true);
+    });
+
+    it('returns true when frame is closed by a spare', function() {
       frame.addRoll(spare1);
       frame.addRoll(spare2);
-      frame.addBonus(roll1);
-      expect(frame.bonusRolls()).toContain(roll1);
+      expect(frame.isFinished()).toBe(true);
     });
 
-    it('adds one roll\'s bonus score when frame is strike', function() {
-      frame.addRoll(strike);
-      frame.addBonus(roll1);
-      expect(frame.bonusRolls()).toContain(roll1);
-    });
+  });
 
-    it('adds two rolls\' bonus scores when frame is strike', function() {
-      frame.addRoll(strike);
-      frame.addBonus(roll1);
-      frame.addBonus(roll2);
-      expect(frame.bonusRolls()).toContain(roll1, roll2);
-    });
+  describe('addBonus()', function() {
 
     it('fails if frame is open', function() {
       frame.addRoll(roll1);
@@ -79,20 +96,75 @@ describe('Frame', function() {
       expect(function() {frame.addBonus(roll3)}).toThrowError("No bonus for open frame.");
     });
 
-    it('fails to add two rolls\' bonus scores when frame is spare', function() {
-      frame.addRoll(spare1);
-      frame.addRoll(spare2);
-      frame.addBonus(roll1);
-      expect(function() {frame.addBonus(roll2)}).toThrowError("Bonus already added for spare.");
+    describe('when frame is spare, ', function() {
+
+      it('adds one bonus roll', function() {
+        frame.addRoll(spare1);
+        frame.addRoll(spare2);
+        frame.addBonus(roll1);
+        expect(frame.bonusRolls()).toContain(roll1);
+      });
+
+      it('fails to add two bonus rolls', function() {
+        frame.addRoll(spare1);
+        frame.addRoll(spare2);
+        frame.addBonus(roll1);
+        expect(function() {frame.addBonus(roll2)}).toThrowError("Bonus already added for spare.");
+      });
+
     });
 
-    it('fails to add three rolls\' bonus scores when frame is striked', function() {
-      frame.addRoll(strike);
-      frame.addBonus(roll1);
-      frame.addBonus(roll2);
-      expect(function() {frame.addBonus(roll3)}).toThrowError("Bonuses already added for strike.");
+    describe('when frame is strike, ', function() {
+
+      it('adds one bonus roll', function() {
+        frame.addRoll(strike);
+        frame.addBonus(roll1);
+        expect(frame.bonusRolls()).toContain(roll1);
+      });
+
+      it('adds two bonus rolls', function() {
+        frame.addRoll(strike);
+        frame.addBonus(roll1);
+        frame.addBonus(roll2);
+        expect(frame.bonusRolls()).toContain(roll1, roll2);
+      });
+
+      it('fails to add three bonus rolls', function() {
+        frame.addRoll(strike);
+        frame.addBonus(roll1);
+        frame.addBonus(roll2);
+        expect(function() {frame.addBonus(roll3)}).toThrowError("Bonuses already added for strike.");
+      });
+
     });
 
   });
+
+  describe('score()', function() {
+    it('returns correct score for one normal roll', function() {
+      frame.addRoll(roll1);
+      expect(frame.score()).toEqual(ROLL_1_SCORE);
+    });
+
+    it('returns correct score for two normal rolls', function() {
+      frame.addRoll(roll1);
+      frame.addRoll(roll2);
+      expect(frame.score()).toEqual(ROLL_1_SCORE + ROLL_2_SCORE)
+    });
+
+    it('returns correct score for a strike and two bonuses', function() {
+      frame.addRoll(strike);
+      frame.addBonus(roll1);
+      frame.addBonus(roll2);
+      expect(frame.score()).toEqual(STRIKE_BASE_SCORE + ROLL_1_SCORE + ROLL_2_SCORE);
+    });
+
+    it('returns correct score for a spare and one bonus', function() {
+      frame.addRoll(spare1);
+      frame.addRoll(spare2);
+      frame.addBonus(roll1);
+      expect(frame.score()).toEqual(SPARE_BASE_SCORE + ROLL_1_SCORE)
+    });
+  })
 
 });
