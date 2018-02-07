@@ -66,9 +66,42 @@ describe('Frame', function() {
 
   });
 
+  describe('firstRoll()', function() {
+
+    it('returns the first roll correctly', function() {
+      frame = new Frame([roll1, roll2]);
+      expect(frame.firstRoll()).toEqual(roll1);
+    });
+
+    it('fails if no rolls', function() {
+      frame = new Frame();
+      expect(function() {frame.firstRoll()}).toThrowError("Roll does not exist.");
+    });
+
+  });
+
+  describe('secondRoll()', function() {
+
+    it('returns the second roll correctly', function() {
+      frame = new Frame([roll1, roll2]);
+      expect(frame.secondRoll()).toEqual(roll2);
+    });
+
+    it('fails if no second roll', function() {
+      frame = new Frame([roll1]);
+      expect(function() {frame.secondRoll()}).toThrowError("Roll does not exist.");
+    });
+
+  });
+
   describe('isFinished()', function() {
 
     it('returns false when frame is empty', function() {
+      expect(frame.isFinished()).toBe(false);
+    });
+
+    it('returns false when frame has one roll', function() {
+      frame = new Frame([roll1]);
       expect(frame.isFinished()).toBe(false);
     });
 
@@ -98,15 +131,16 @@ describe('Frame', function() {
 
     describe('when frame is spare, ', function() {
 
-      it('adds one bonus roll', function() {
+      beforeEach(function() {
         frame = new Frame([spare1, spare2]);
         frame.addBonus(roll1);
+      });
+
+      it('adds one bonus roll', function() {
         expect(frame.bonusRolls()).toContain(roll1);
       });
 
       it('fails to add two bonus rolls', function() {
-        frame = new Frame([spare1, spare2]);
-        frame.addBonus(roll1);
         expect(function() {frame.addBonus(roll2)}).toThrowError("Bonus already added for spare.");
       });
 
@@ -114,22 +148,21 @@ describe('Frame', function() {
 
     describe('when frame is strike, ', function() {
 
-      it('adds one bonus roll', function() {
+      beforeEach(function() {
         frame = new Frame([strike]);
         frame.addBonus(roll1);
+      });
+
+      it('adds one bonus roll', function() {
         expect(frame.bonusRolls()).toContain(roll1);
       });
 
       it('adds two bonus rolls', function() {
-        frame = new Frame([strike]);
-        frame.addBonus(roll1);
         frame.addBonus(roll2);
         expect(frame.bonusRolls()).toContain(roll1, roll2);
       });
 
       it('fails to add three bonus rolls', function() {
-        frame = new Frame([strike]);
-        frame.addBonus(roll1);
         frame.addBonus(roll2);
         expect(function() {frame.addBonus(roll3)}).toThrowError("Bonuses already added for strike.");
       });

@@ -7,6 +7,20 @@ Frame.prototype.rolls = function() {
   return this._rolls;
 };
 
+Frame.prototype.firstRoll = function () {
+  if (this._isEmpty()) {
+    throw Error("Roll does not exist.");
+  };
+  return this._rolls[0];
+};
+
+Frame.prototype.secondRoll = function () {
+  if (!this._isFull()) {
+    throw Error("Roll does not exist.");
+  };
+  return this._rolls[1];  
+};
+
 Frame.prototype.bonusRolls = function () {
   return this._bonusRolls;
 };
@@ -30,6 +44,10 @@ Frame.prototype.score = function () {
 };
 
 // private
+
+Frame.prototype._isEmpty = function () {
+  return this._rolls.length == 0;
+};
 
 Frame.prototype._checkCapacityForRoll = function () {
   if (this._isFull()) {
