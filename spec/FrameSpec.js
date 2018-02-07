@@ -69,6 +69,10 @@ describe('Frame', function() {
 
   describe('isFinished()', function() {
 
+    it('returns false when frame is empty', function() {
+      expect(frame.isFinished()).toBe(false);
+    });
+
     it('returns true when frame is full', function() {
       frame.addRoll(roll1);
       frame.addRoll(roll2);
