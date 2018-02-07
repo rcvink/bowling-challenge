@@ -1,6 +1,7 @@
 function Game(frames = []) {
   this._score = 0;
-  this._frames = [new Frame(),
+  this._frames = [
+    new Frame(),
     new Frame(),
     new Frame(),
     new Frame(),
@@ -14,7 +15,11 @@ function Game(frames = []) {
 };
 
 Game.prototype.score = function () {
-  return this._score;
+  var sum = 0;
+  this._frames.forEach(function(frame) {
+    sum += frame.score();
+  });
+  return sum;
 };
 
 Game.prototype.frames = function () {

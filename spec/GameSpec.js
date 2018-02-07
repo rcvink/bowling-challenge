@@ -14,7 +14,7 @@ describe('Game', function() {
 
   });
 
-  describe('currentFrame', function() {
+  describe('currentFrame()', function() {
 
     it('returns the first frame of a new game', function() {
       var game = new Game();
@@ -64,6 +64,59 @@ describe('Game', function() {
       game.currentFrame().addRoll(new Roll(3));
       game.currentFrame().addRoll(new Roll(4));
       expect(game.currentFrame()).toBeUndefined();
+    });
+
+  });
+
+  describe('score()', function() {
+
+    describe('without bonus rolls', function() {
+
+      it('returns a correct score for a partially completed game', function() {
+        var game = new Game();
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(5));
+        expect(game.score()).toEqual(12);
+      });
+
+      it('returns a correct score for a completed game', function() {
+        var game = new Game();
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        expect(game.score()).toEqual(70);
+      });
+
+    });
+
+    describe('with bonus rolls', function() {
+
+      it('returns a correct score for a partially completed game', function() {
+
+      });
+
+      it('returns a correct score for a completed game', function() {
+        
+      });
+
     });
 
   });
