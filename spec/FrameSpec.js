@@ -55,13 +55,12 @@ describe('Frame', function() {
     });
 
     it('fails when frame is full', function() {
-      frame.addRoll(roll1);
-      frame.addRoll(roll2);
+      frame = new Frame([roll1, roll2]);
       expect(function() {frame.addRoll(roll3)}).toThrowError("Frame is full.");
     });
 
     it('fails when frame is closed', function() {
-      frame.addRoll(strike);
+      frame = new Frame([strike])
       expect(function() {frame.addRoll(roll1)}).toThrowError("Frame is closed.");
     });
 
@@ -74,19 +73,17 @@ describe('Frame', function() {
     });
 
     it('returns true when frame is full', function() {
-      frame.addRoll(roll1);
-      frame.addRoll(roll2);
+      frame = new Frame([roll1, roll2]);
       expect(frame.isFinished()).toBe(true);
     });
 
     it('returns true when frame is closed by a strike', function() {
-      frame.addRoll(strike);
+      frame = new Frame([strike]);
       expect(frame.isFinished()).toBe(true);
     });
 
     it('returns true when frame is closed by a spare', function() {
-      frame.addRoll(spare1);
-      frame.addRoll(spare2);
+      frame = new Frame([spare1, spare2]);
       expect(frame.isFinished()).toBe(true);
     });
 
@@ -95,23 +92,20 @@ describe('Frame', function() {
   describe('addBonus()', function() {
 
     it('fails if frame is open', function() {
-      frame.addRoll(roll1);
-      frame.addRoll(roll2);
+      frame = new Frame([roll1, roll2]);
       expect(function() {frame.addBonus(roll3)}).toThrowError("No bonus for open frame.");
     });
 
     describe('when frame is spare, ', function() {
 
       it('adds one bonus roll', function() {
-        frame.addRoll(spare1);
-        frame.addRoll(spare2);
+        frame = new Frame([spare1, spare2]);
         frame.addBonus(roll1);
         expect(frame.bonusRolls()).toContain(roll1);
       });
 
       it('fails to add two bonus rolls', function() {
-        frame.addRoll(spare1);
-        frame.addRoll(spare2);
+        frame = new Frame([spare1, spare2]);
         frame.addBonus(roll1);
         expect(function() {frame.addBonus(roll2)}).toThrowError("Bonus already added for spare.");
       });
@@ -121,20 +115,20 @@ describe('Frame', function() {
     describe('when frame is strike, ', function() {
 
       it('adds one bonus roll', function() {
-        frame.addRoll(strike);
+        frame = new Frame([strike]);
         frame.addBonus(roll1);
         expect(frame.bonusRolls()).toContain(roll1);
       });
 
       it('adds two bonus rolls', function() {
-        frame.addRoll(strike);
+        frame = new Frame([strike]);
         frame.addBonus(roll1);
         frame.addBonus(roll2);
         expect(frame.bonusRolls()).toContain(roll1, roll2);
       });
 
       it('fails to add three bonus rolls', function() {
-        frame.addRoll(strike);
+        frame = new Frame([strike]);
         frame.addBonus(roll1);
         frame.addBonus(roll2);
         expect(function() {frame.addBonus(roll3)}).toThrowError("Bonuses already added for strike.");
@@ -146,26 +140,24 @@ describe('Frame', function() {
 
   describe('score()', function() {
     it('returns correct score for one normal roll', function() {
-      frame.addRoll(roll1);
+      frame = new Frame([roll1]);
       expect(frame.score()).toEqual(ROLL_1_SCORE);
     });
 
     it('returns correct score for two normal rolls', function() {
-      frame.addRoll(roll1);
-      frame.addRoll(roll2);
+      frame = new Frame([roll1, roll2]);
       expect(frame.score()).toEqual(ROLL_1_SCORE + ROLL_2_SCORE)
     });
 
     it('returns correct score for a strike and two bonuses', function() {
-      frame.addRoll(strike);
+      frame = new Frame([strike]);
       frame.addBonus(roll1);
       frame.addBonus(roll2);
       expect(frame.score()).toEqual(STRIKE_BASE_SCORE + ROLL_1_SCORE + ROLL_2_SCORE);
     });
 
     it('returns correct score for a spare and one bonus', function() {
-      frame.addRoll(spare1);
-      frame.addRoll(spare2);
+      frame = new Frame([spare1, spare2]);
       frame.addBonus(roll1);
       expect(frame.score()).toEqual(SPARE_BASE_SCORE + ROLL_1_SCORE)
     });

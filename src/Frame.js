@@ -1,5 +1,5 @@
-function Frame() {
-  this._rolls = [];
+function Frame(rolls = []) {
+  this._rolls = rolls;
   this._bonusRolls = [];
 };
 
