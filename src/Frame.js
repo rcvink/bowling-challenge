@@ -7,6 +7,10 @@ Frame.prototype.rolls = function() {
   return this._rolls;
 };
 
+Frame.prototype.bonusRolls = function () {
+  return this._bonusRolls;
+};
+
 Frame.prototype.firstRoll = function () {
   if (this._isEmpty()) {
     throw Error("Roll does not exist.");
@@ -21,10 +25,6 @@ Frame.prototype.secondRoll = function () {
   return this._rolls[1];
 };
 
-Frame.prototype.bonusRolls = function () {
-  return this._bonusRolls;
-};
-
 Frame.prototype.addRoll = function(roll) {
   this._checkCapacityForRoll();
   this._rolls.push(roll);
@@ -32,6 +32,14 @@ Frame.prototype.addRoll = function(roll) {
 
 Frame.prototype.isFinished = function () {
   return this._isFull() || this._isClosed();
+};
+
+Frame.prototype.isSpare = function () {
+  return this._isClosed() && this._isFull();
+};
+
+Frame.prototype.isStrike = function () {
+  return this._isClosed() && this._rolls.length == 1;
 };
 
 Frame.prototype.addBonus = function(roll) {
@@ -93,14 +101,6 @@ Frame.prototype._checkCapacityForBonus = function () {
 
 Frame.prototype._isOpen = function () {
   return !this._isClosed()
-};
-
-Frame.prototype.isSpare = function () {
-  return this._isClosed() && this._isFull();
-};
-
-Frame.prototype.isStrike = function () {
-  return this._isClosed() && this._rolls.length == 1;
 };
 
 Frame.prototype._hasOneBonus = function () {

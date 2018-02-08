@@ -41,31 +41,6 @@ describe('Frame', function() {
 
   });
 
-  describe('addRoll()', function() {
-
-    it('adds one roll', function() {
-      frame.addRoll(roll1);
-      expect(frame.rolls()).toContain(roll1);
-    });
-
-    it('adds two rolls', function() {
-      frame.addRoll(roll1);
-      frame.addRoll(roll2);
-      expect(frame.rolls()).toContain(roll1, roll2);
-    });
-
-    it('fails when frame is full', function() {
-      frame = new Frame([roll1, roll2]);
-      expect(function() {frame.addRoll(roll3)}).toThrowError("Frame is full.");
-    });
-
-    it('fails when frame is closed', function() {
-      frame = new Frame([strike])
-      expect(function() {frame.addRoll(roll1)}).toThrowError("Frame is closed.");
-    });
-
-  });
-
   describe('firstRoll()', function() {
 
     it('returns the first roll correctly', function() {
@@ -94,6 +69,31 @@ describe('Frame', function() {
 
   });
 
+  describe('addRoll()', function() {
+
+    it('adds one roll', function() {
+      frame.addRoll(roll1);
+      expect(frame.rolls()).toContain(roll1);
+    });
+
+    it('adds two rolls', function() {
+      frame.addRoll(roll1);
+      frame.addRoll(roll2);
+      expect(frame.rolls()).toContain(roll1, roll2);
+    });
+
+    it('fails when frame is full', function() {
+      frame = new Frame([roll1, roll2]);
+      expect(function() {frame.addRoll(roll3)}).toThrowError("Frame is full.");
+    });
+
+    it('fails when frame is closed', function() {
+      frame = new Frame([strike])
+      expect(function() {frame.addRoll(roll1)}).toThrowError("Frame is closed.");
+    });
+
+  });
+
   describe('isFinished()', function() {
 
     it('returns false when frame is empty', function() {
@@ -118,6 +118,34 @@ describe('Frame', function() {
     it('returns true when frame is closed by a spare', function() {
       frame = new Frame([spare1, spare2]);
       expect(frame.isFinished()).toBe(true);
+    });
+
+  });
+
+  describe('isSpare()', function() {
+
+    it('returns true correctly', function() {
+      frame = new Frame([spare1, spare2]);
+      expect(frame.isSpare()).toBe(true);
+    });
+
+    it('returns false correctly', function() {
+      frame = new Frame([roll1, roll2]);
+      expect(frame.isSpare()).toBe(false);
+    });
+
+  });
+
+  describe('isStrike()', function() {
+
+    it('returns true correctly', function() {
+      frame = new Frame([strike]);
+      expect(frame.isStrike()).toBe(true);
+    });
+
+    it('returns false correctly', function() {
+      frame = new Frame([roll1, roll2]);
+      expect(frame.isStrike()).toBe(false);
     });
 
   });
