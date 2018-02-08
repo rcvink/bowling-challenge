@@ -70,7 +70,7 @@ describe('Game', function() {
 
   describe('score()', function() {
 
-    describe('without bonus rolls', function() {
+    describe('without any bonus rolls,', function() {
 
       it('returns a correct score for a partially completed game', function() {
         var game = new Game();
@@ -107,14 +107,79 @@ describe('Game', function() {
 
     });
 
-    describe('with bonus rolls', function() {
+    describe('with bonus rolls,', function() {
 
-      it('returns a correct score for a partially completed game', function() {
+      describe('in a game with a strike,', function() {
+
+        it('returns a correct score for a partially completed game', function() {
+          var game = new Game();
+          game.currentFrame().addRoll(new Roll(10));
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(5));
+          expect(game.score()).toEqual(28);
+        });
+
+        it('returns a correct score for a completed game', function() {
+          var game = new Game();
+          game.currentFrame().addRoll(new Roll(10));
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(3));
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(3));
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(3));
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(3));
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(3));
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(3));
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(3));
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(3));
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(3));
+          expect(game.score()).toEqual(80);
+        });
 
       });
 
-      it('returns a correct score for a completed game', function() {
-        
+      describe('in a game with a spare,', function() {
+
+        it('returns a correct score for a partially completed game', function() {
+          var game = new Game();
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(6));
+          game.currentFrame().addRoll(new Roll(5));
+          game.currentFrame().addRoll(new Roll(1));
+          expect(game.score()).toEqual(21);
+        });
+
+        it('returns a correct score for a completed game', function() {
+          var game = new Game();
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(6));
+          game.currentFrame().addRoll(new Roll(5));
+          game.currentFrame().addRoll(new Roll(1));
+          game.currentFrame().addRoll(new Roll(3));
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(3));
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(3));
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(3));
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(3));
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(3));
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(3));
+          game.currentFrame().addRoll(new Roll(4));
+          game.currentFrame().addRoll(new Roll(3));
+          expect(game.score()).toEqual(73);
+        });
+
       });
 
     });

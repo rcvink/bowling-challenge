@@ -1,60 +1,49 @@
 $(document).ready(function() {
   var game = new Game();
-  var frame = new Frame();
-  game.addFrame(frame);
 
   $('#1').on('click', function() {
-    var roll = new Roll(1);
-    addRollToFrame(roll);
+    addRollToFrame(new Roll(1));
   });
 
   $('#2').on('click', function() {
-    var roll = new Roll(2);
-    addRollToFrame(roll);
+    addRollToFrame(new Roll(2));
   });
 
   $('#3').on('click', function() {
-    var roll = new Roll(3);
-    addRollToFrame(roll);
+    addRollToFrame(new Roll(3));
   });
 
   $('#4').on('click', function() {
-    var roll = new Roll(4);
-    addRollToFrame(roll);
+    addRollToFrame(new Roll(4));
   });
 
   $('#5').on('click', function() {
-    var roll = new Roll(5);
-    addRollToFrame(roll);
+    addRollToFrame(new Roll(5));
   });
 
   $('#6').on('c2lick', function() {
-    var roll = new Roll(6);
-    addRollToFrame(roll);
+    addRollToFrame(new Roll(6));
   });
 
   $('#7').on('click', function() {
-    var roll = new Roll(7);
-    addRollToFrame(roll);
+    addRollToFrame(new Roll(7));
   });
 
   $('#8').on('click', function() {
-    var roll = new Roll(8);
-    addRollToFrame(roll);
+    addRollToFrame(new Roll(8));
   });
 
   $('#9').on('click', function() {
-    var roll = new Roll(9);
-    addRollToFrame(roll);
+    addRollToFrame(new Roll(9));
   });
 
   $('#10').on('click', function() {
-    var roll = new Roll(10);
-    addRollToFrame(roll);
+    addRollToFrame(new Roll(10));
   });
 
   function addRollToFrame(roll) {
     game.currentFrame().addRoll(roll);
+    console.log(game);
   };
 
 });

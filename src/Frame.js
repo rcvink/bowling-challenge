@@ -18,7 +18,7 @@ Frame.prototype.secondRoll = function () {
   if (!this._isFull()) {
     throw Error("Roll does not exist.");
   };
-  return this._rolls[1];  
+  return this._rolls[1];
 };
 
 Frame.prototype.bonusRolls = function () {
@@ -84,9 +84,9 @@ Frame.prototype._getScore = function (rolls) {
 Frame.prototype._checkCapacityForBonus = function () {
   if (this._isOpen()) {
     throw Error("No bonus for open frame.");
-  } else if (this._isSpare() && this._hasOneBonus()) {
+  } else if (this.isSpare() && this._hasOneBonus()) {
     throw Error("Bonus already added for spare.");
-  } else if (this._isStrike() && this._hasTwoBonus()) {
+  } else if (this.isStrike() && this._hasTwoBonus()) {
     throw Error("Bonuses already added for strike.");
   };
 };
@@ -95,11 +95,11 @@ Frame.prototype._isOpen = function () {
   return !this._isClosed()
 };
 
-Frame.prototype._isSpare = function () {
+Frame.prototype.isSpare = function () {
   return this._isClosed() && this._isFull();
 };
 
-Frame.prototype._isStrike = function () {
+Frame.prototype.isStrike = function () {
   return this._isClosed() && this._rolls.length == 1;
 };
 

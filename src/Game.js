@@ -15,6 +15,7 @@ function Game(frames = []) {
 };
 
 Game.prototype.score = function () {
+  this._distributeBonuses();
   var sum = 0;
   this._frames.forEach(function(frame) {
     sum += frame.score();
@@ -29,5 +30,19 @@ Game.prototype.frames = function () {
 Game.prototype.currentFrame = function () {
   return this._frames.find(function(frame) {
     return !frame.isFinished();
+  });
+};
+
+Game.prototype._distributeBonuses = function () {
+  var index;
+  var frames = this._frames;
+  frames.forEach(function(frame) {
+    index = frames.indexOf(frame)
+    if (frame.isStrike()) {
+      frame.addBonus(frames[index + 1].firstRoll());
+      frame.addBonus(frames[index + 1].secondRoll());
+    } else if (frame.isSpare()) {
+      frame.addBonus(frames[index + 1].firstRoll());
+    };
   });
 };
