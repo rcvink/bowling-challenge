@@ -33,16 +33,20 @@ Game.prototype.currentFrame = function () {
   });
 };
 
+// Game.prototype.previousFrame = function () {
+//   return this._frames[this._frames.indexOf(this.currentFrame()) - 1];
+// };
+
 Game.prototype._distributeBonuses = function () {
   var index;
   var frames = this._frames;
   frames.forEach(function(frame) {
     index = frames.indexOf(frame)
+    if (frame.isStrike() || frame.isSpare()) {
+      frame.addBonus(frames[index + 1].firstRoll());
+    };
     if (frame.isStrike()) {
-      frame.addBonus(frames[index + 1].firstRoll());
       frame.addBonus(frames[index + 1].secondRoll());
-    } else if (frame.isSpare()) {
-      frame.addBonus(frames[index + 1].firstRoll());
     };
   });
 };

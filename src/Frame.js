@@ -12,7 +12,7 @@ Frame.prototype.bonusRolls = function () {
 };
 
 Frame.prototype.firstRoll = function () {
-  if (this._isEmpty()) {
+  if (this.isEmpty()) {
     throw Error("Roll does not exist.");
   };
   return this._rolls[0];
@@ -51,11 +51,12 @@ Frame.prototype.score = function () {
   return this._baseScore() + this._bonusScore();
 };
 
-// private
-
-Frame.prototype._isEmpty = function () {
+Frame.prototype.isEmpty = function () {
+  // untested method
   return this._rolls.length == 0;
 };
+
+// private
 
 Frame.prototype._checkCapacityForRoll = function () {
   if (this._isFull()) {

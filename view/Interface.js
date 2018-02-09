@@ -1,49 +1,68 @@
 $(document).ready(function() {
   var game = new Game();
+  var rollCellIndex = 1;
+  var frameCellIndex = 1;
 
-  $('#1').on('click', function() {
-    addRollToFrame(new Roll(1));
+  $('#b1').on('click', function() {
+    updateThings(new Roll(1));
   });
 
-  $('#2').on('click', function() {
-    addRollToFrame(new Roll(2));
+  $('#b2').on('click', function() {
+    updateThings(new Roll(2));
   });
 
-  $('#3').on('click', function() {
-    addRollToFrame(new Roll(3));
+  $('#b3').on('click', function() {
+    updateThings(new Roll(3));
   });
 
-  $('#4').on('click', function() {
-    addRollToFrame(new Roll(4));
+  $('#b4').on('click', function() {
+    updateThings(new Roll(4));
   });
 
-  $('#5').on('click', function() {
-    addRollToFrame(new Roll(5));
+  $('#b5').on('click', function() {
+    updateThings(new Roll(5));
   });
 
-  $('#6').on('c2lick', function() {
-    addRollToFrame(new Roll(6));
+  $('#b6').on('click', function() {
+    updateThings(new Roll(6));
   });
 
-  $('#7').on('click', function() {
-    addRollToFrame(new Roll(7));
+  $('#b7').on('click', function() {
+    updateThings(new Roll(7));
   });
 
-  $('#8').on('click', function() {
-    addRollToFrame(new Roll(8));
+  $('#b8').on('click', function() {
+    updateThings(new Roll(8));
   });
 
-  $('#9').on('click', function() {
-    addRollToFrame(new Roll(9));
+  $('#b9').on('click', function() {
+    updateThings(new Roll(9));
   });
 
-  $('#10').on('click', function() {
-    addRollToFrame(new Roll(10));
+  $('#b10').on('click', function() {
+    updateThings(new Roll(10));
   });
+
+  function updateThings(roll) {
+    addRollToFrame(roll);
+    updateRollScore(roll);
+    if (game.currentFrame().isEmpty()) {
+      updateFrameScore();
+    }
+  }
 
   function addRollToFrame(roll) {
     game.currentFrame().addRoll(roll);
-    console.log(game);
+  };
+
+  function updateRollScore(roll) {
+    $(`#r${rollCellIndex}`).text(roll.pins());
+    rollCellIndex++;
+  };
+
+  function updateFrameScore() {
+    $(`#f${frameCellIndex}`).text(game.score());
+    frameCellIndex++;
   };
 
 });

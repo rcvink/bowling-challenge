@@ -4,6 +4,9 @@ table, th, td {
   border-collapse: collapse;
 }
 th, td {
-  padding: 5px;
+  height: 20px;
+  width: 10px;
+  max-height: 20px;
+  max-width: 10px;
   text-align: center;
 }

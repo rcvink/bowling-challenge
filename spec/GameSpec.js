@@ -67,6 +67,50 @@ describe('Game', function() {
     });
 
   });
+  /*
+  describe('previousFrame()', function() {
+
+    it('returns the first frame after two rolls', function() {
+      var game = new Game();
+      game.currentFrame().addRoll(new Roll(3));
+      game.currentFrame().addRoll(new Roll(4));
+      expect(game.previousFrame()).toEqual(game.frames()[0]);
+    });
+
+    it('returns the first frame after three rolls', function() {
+      var game = new Game();
+      game.currentFrame().addRoll(new Roll(3));
+      game.currentFrame().addRoll(new Roll(4));
+      game.currentFrame().addRoll(new Roll(5));
+      expect(game.previousFrame()).toEqual(game.frames()[0]);
+    });
+
+    it('returns the second frame after four rolls', function() {
+      var game = new Game();
+      game.currentFrame().addRoll(new Roll(3));
+      game.currentFrame().addRoll(new Roll(4));
+      game.currentFrame().addRoll(new Roll(5));
+      game.currentFrame().addRoll(new Roll(6));
+      expect(game.previousFrame()).toEqual(game.frames()[1]);
+    });
+
+    it('returns the fifth frame after ten rolls', function() {
+      var game = new Game();
+      game.currentFrame().addRoll(new Roll(3));
+      game.currentFrame().addRoll(new Roll(4));
+      game.currentFrame().addRoll(new Roll(5));
+      game.currentFrame().addRoll(new Roll(6));
+      game.currentFrame().addRoll(new Roll(3));
+      game.currentFrame().addRoll(new Roll(4));
+      game.currentFrame().addRoll(new Roll(5));
+      game.currentFrame().addRoll(new Roll(6));
+      game.currentFrame().addRoll(new Roll(3));
+      game.currentFrame().addRoll(new Roll(4));
+      expect(game.previousFrame()).toEqual(game.frames()[4]);
+    });
+
+  });
+  */
 
   describe('score()', function() {
 
