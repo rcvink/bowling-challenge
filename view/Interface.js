@@ -56,13 +56,22 @@ $(document).ready(function() {
   };
 
   function updateRollScore(roll) {
-    $(`#r${rollCellIndex}`).text(roll.pins());
+    printRoll(roll);
     rollCellIndex++;
   };
 
   function updateFrameScore() {
     $(`#f${frameCellIndex}`).text(game.score());
     frameCellIndex++;
+  };
+
+  function printRoll(roll) {
+    if (roll.pins() == 10) {
+      rollCellIndex++;
+      $(`#r${rollCellIndex}`).text('X');
+    } else {
+      $(`#r${rollCellIndex}`).text(roll.pins());
+    };
   };
 
 });
