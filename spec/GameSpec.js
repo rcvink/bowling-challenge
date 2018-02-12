@@ -114,17 +114,9 @@ describe('Game', function() {
 
   describe('score()', function() {
 
-    describe('without any bonus rolls,', function() {
+    describe('at the end of a game, returns correct score for', function() {
 
-      it('returns a correct score for a partially completed game', function() {
-        var game = new Game();
-        game.currentFrame().addRoll(new Roll(3));
-        game.currentFrame().addRoll(new Roll(4));
-        game.currentFrame().addRoll(new Roll(5));
-        expect(game.score()).toEqual(12);
-      });
-
-      it('returns a correct score for a completed game', function() {
+      it('a game without any strikes or spares', function() {
         var game = new Game();
         game.currentFrame().addRoll(new Roll(3));
         game.currentFrame().addRoll(new Roll(4));
@@ -149,13 +141,166 @@ describe('Game', function() {
         expect(game.score()).toEqual(70);
       });
 
+      it('a game with one strike', function() {
+        var game = new Game();
+        game.currentFrame().addRoll(new Roll(10));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        expect(game.score()).toEqual(80);
+      });
+
+      it('a game with one spare', function() {
+        var game = new Game();
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(6));
+        game.currentFrame().addRoll(new Roll(5));
+        game.currentFrame().addRoll(new Roll(1));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        expect(game.score()).toEqual(73);
+      });
+
+      it('a game with one spare and one strike', function() {
+        var game = new Game();
+        game.currentFrame().addRoll(new Roll(10));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(6));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        expect(game.score()).toEqual(87);
+      });
+
+      it('a game with two strikes', function() {
+        var game = new Game();
+        game.currentFrame().addRoll(new Roll(10));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(10));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        expect(game.score()).toEqual(92);
+      });
+
+      it('a game with two spares', function() {
+        var game = new Game();
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(6));
+        game.currentFrame().addRoll(new Roll(5));
+        game.currentFrame().addRoll(new Roll(1));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(6));
+        game.currentFrame().addRoll(new Roll(1));
+        game.currentFrame().addRoll(new Roll(2));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(5));
+        game.currentFrame().addRoll(new Roll(1));
+        game.currentFrame().addRoll(new Roll(2));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(5));
+        game.currentFrame().addRoll(new Roll(1));
+        game.currentFrame().addRoll(new Roll(2));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        expect(game.score()).toEqual(72);
+      });
+
+      it('a game with some mixture of spares and strikes', function() {
+        var game = new Game();
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(6));
+        game.currentFrame().addRoll(new Roll(5));
+        game.currentFrame().addRoll(new Roll(1));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(6));
+        game.currentFrame().addRoll(new Roll(1));
+        game.currentFrame().addRoll(new Roll(2));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(5));
+        game.currentFrame().addRoll(new Roll(1));
+        game.currentFrame().addRoll(new Roll(2));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(5));
+        game.currentFrame().addRoll(new Roll(1));
+        game.currentFrame().addRoll(new Roll(2));
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        expect(game.score()).toEqual(72);
+      });
+
     });
 
-    describe('with bonus rolls,', function() {
+    describe('mid-way through a game, returns correct score for', function() {
 
-      describe('in a game with a strike,', function() {
+      it('a game without any spares or strikes', function() {
+        var game = new Game();
+        game.currentFrame().addRoll(new Roll(3));
+        game.currentFrame().addRoll(new Roll(4));
+        game.currentFrame().addRoll(new Roll(5));
+        expect(game.score()).toEqual(12);
+      });
 
-        it('returns a correct score for a partially completed game', function() {
+      describe('- after bonuses have been rolled -', function() {
+
+        it('a game with one strike', function() {
           var game = new Game();
           game.currentFrame().addRoll(new Roll(10));
           game.currentFrame().addRoll(new Roll(4));
@@ -163,65 +308,13 @@ describe('Game', function() {
           expect(game.score()).toEqual(28);
         });
 
-        it('returns a correct score for a completed game', function() {
-          var game = new Game();
-          game.currentFrame().addRoll(new Roll(10));
-          game.currentFrame().addRoll(new Roll(4));
-          game.currentFrame().addRoll(new Roll(3));
-          game.currentFrame().addRoll(new Roll(4));
-          game.currentFrame().addRoll(new Roll(3));
-          game.currentFrame().addRoll(new Roll(4));
-          game.currentFrame().addRoll(new Roll(3));
-          game.currentFrame().addRoll(new Roll(4));
-          game.currentFrame().addRoll(new Roll(3));
-          game.currentFrame().addRoll(new Roll(4));
-          game.currentFrame().addRoll(new Roll(3));
-          game.currentFrame().addRoll(new Roll(4));
-          game.currentFrame().addRoll(new Roll(3));
-          game.currentFrame().addRoll(new Roll(4));
-          game.currentFrame().addRoll(new Roll(3));
-          game.currentFrame().addRoll(new Roll(4));
-          game.currentFrame().addRoll(new Roll(3));
-          game.currentFrame().addRoll(new Roll(4));
-          game.currentFrame().addRoll(new Roll(3));
-          expect(game.score()).toEqual(80);
-        });
-
-      });
-
-      describe('in a game with a spare,', function() {
-
-        it('returns a correct score for a partially completed game', function() {
+        it('a game with one spare', function() {
           var game = new Game();
           game.currentFrame().addRoll(new Roll(4));
           game.currentFrame().addRoll(new Roll(6));
           game.currentFrame().addRoll(new Roll(5));
           game.currentFrame().addRoll(new Roll(1));
           expect(game.score()).toEqual(21);
-        });
-
-        it('returns a correct score for a completed game', function() {
-          var game = new Game();
-          game.currentFrame().addRoll(new Roll(4));
-          game.currentFrame().addRoll(new Roll(6));
-          game.currentFrame().addRoll(new Roll(5));
-          game.currentFrame().addRoll(new Roll(1));
-          game.currentFrame().addRoll(new Roll(3));
-          game.currentFrame().addRoll(new Roll(4));
-          game.currentFrame().addRoll(new Roll(3));
-          game.currentFrame().addRoll(new Roll(4));
-          game.currentFrame().addRoll(new Roll(3));
-          game.currentFrame().addRoll(new Roll(4));
-          game.currentFrame().addRoll(new Roll(3));
-          game.currentFrame().addRoll(new Roll(4));
-          game.currentFrame().addRoll(new Roll(3));
-          game.currentFrame().addRoll(new Roll(4));
-          game.currentFrame().addRoll(new Roll(3));
-          game.currentFrame().addRoll(new Roll(4));
-          game.currentFrame().addRoll(new Roll(3));
-          game.currentFrame().addRoll(new Roll(4));
-          game.currentFrame().addRoll(new Roll(3));
-          expect(game.score()).toEqual(73);
         });
 
       });

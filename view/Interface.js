@@ -3,6 +3,10 @@ $(document).ready(function() {
   var rollCellIndex = 1;
   var frameCellIndex = 1;
 
+  $('#b0').on('click', function() {
+    updateThings(new Roll(0));
+  });
+
   $('#b1').on('click', function() {
     updateThings(new Roll(1));
   });
